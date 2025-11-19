@@ -1,0 +1,29 @@
+# Ignore 해제
+!Plugins/ReplicationGraph
+
+# IDE 설정
+.idea/
+.vs/
+
+# Unreal Engine 빌드 아티팩트
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+
+# Rider Plugins 무시
+Plugins/Developer/RiderLink
+
+# 기타 임시 파일 (필요시 추가)
+*.log
+*.tmp
+
+# Perforce 설정 파일 무시
+.p4config
+.p4config_VH
+.p4config_OD
+
+#솔루션 파일 무시
+*.sln
+.vsconfig

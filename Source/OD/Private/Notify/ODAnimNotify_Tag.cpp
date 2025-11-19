@@ -1,0 +1,51 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Notify/ODAnimNotify_Tag.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
+#include "Character/ODCombatCharacter.h"
+#include "Debug/ODLogChannels.h"
+#include "Helper/ODDebugHelper.h"
+
+
+UODAnimNotify_Tag::UODAnimNotify_Tag()
+{
+	
+}
+
+void UODAnimNotify_Tag::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation,
+                               const FAnimNotifyEventReference& EventReference)
+{
+	Super::Notify(MeshComp, Animation, EventReference);
+	
+	if (!MeshComp || !Tag.IsValid())
+		return;
+	
+	if (AODCombatCharacter* CombatCharacter = Cast<AODCombatCharacter>(MeshComp->GetOwner()))
+	{
+		//캐릭터의 매쉬와 같은가?
+		if (CombatCharacter->GetMesh() != MeshComp)
+			return;
+
+		//LeaderPoseComponent 부모를 따라가는가?
+		if (MeshComp->LeaderPoseComponent.IsValid())
+			return;
+
+		//권위가 없는데 공격판정을 하는가?
+		FGameplayTag MatchTag = FGameplayTag::RequestGameplayTag("OD.Notify.Combat");
+		if (!CombatCharacter->HasAuthority() && Tag.MatchesTag(MatchTag))
+			return;
+		
+		
+		if (UAbilitySystemComponent* ASC = CombatCharacter->GetAbilitySystemComponent())
+		{
+			FGameplayEventData Data;
+			Data.EventTag = Tag;
+			Data.Instigator = CombatCharacter;
+			Data.Target = CombatCharacter->GetTarget();
+			
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(CombatCharacter,Tag,Data);
+		}
+	}
+}

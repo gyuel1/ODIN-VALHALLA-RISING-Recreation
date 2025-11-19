@@ -1,0 +1,44 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{8AE678B1-4EE4-F6E8-D1C5-2A80AEFED9BC}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "OD",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"GameplayAbilities",
+				"CommonUI",
+				"DeveloperSettings",
+				"AIModule",
+				"CoreUObject",
+				"UMG",
+				"ReplicationGraph"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "CommonUI",
+			"Enabled": true
+		},
+		{
+			"Name": "ReplicationGraph",
+			"Enabled": true
+		}
+	]
+}

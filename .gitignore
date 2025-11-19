@@ -1,0 +1,25 @@
+# Unreal Engine Ignore
+Saved/
+Intermediate/
+DerivedDataCache/
+Binaries/
+Build/
+
+.vs/
+.idea/
+*.VC.db
+*.opensdf
+*.sdf
+*.suo
+*.log
+*.pdb
+*.obj
+
+Plugins/*/Intermediate/
+Plugins/*/Binaries/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
