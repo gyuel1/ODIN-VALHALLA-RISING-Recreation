@@ -55,13 +55,11 @@ InterpSpeed = 1.0f;  // 보간 속도
 
 ### 1.4 자동사냥 중 카메라 동작
 
-<video src="https://github.com/user-attachments/assets/2221efed-ff2b-4a91-85d8-0f15f6a9baf6"
-       width="800"
-       autoplay
-       loop
-       muted
-       playsinline>
-</video>
+
+https://github.com/user-attachments/assets/b2c80920-2ae7-4bf9-b077-15cdf0397aff
+
+
+
 > [!IMPORTANT]
 > **N/D 모드 전용**: 자동사냥 시 N 또는 D 카메라 모드일 때만 캐릭터 뒤로 자동 회전합니다.
 > **Q 모드**: 근접 전투용 고정 시점을 유지하여 자동 추적이 비활성화됩니다.
