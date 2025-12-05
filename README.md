@@ -691,6 +691,3 @@ class AODCombatCharacter
 - [`ODSkillComponent.h`](file:///c:/Users/a0104/Desktop/git/OD/Public/Components/ODSkillComponent.h)
 
 ---
-
-**작성일**: 2025-12-05  
-**버전**: 1.0
