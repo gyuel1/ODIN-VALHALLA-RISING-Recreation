@@ -55,7 +55,6 @@ InterpSpeed = 1.0f;  // 보간 속도
 
 ### 1.4 자동사냥 중 카메라 동작
 
-https://github.com/user-attachments/assets/d1a97c4b-c510-4a3e-88e3-5adcf6a05aac
 > [!IMPORTANT]
 
 
