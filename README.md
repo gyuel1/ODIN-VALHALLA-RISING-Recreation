@@ -1,3 +1,4 @@
+```mermaid
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -54,6 +55,7 @@ flowchart TD
   class END end;
 
   linkStyle default stroke:#000000,stroke-width:2px;
+```
 
 # OD 게임 시스템 문서
 
