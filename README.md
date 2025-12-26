@@ -39,12 +39,12 @@ struct FCamPreset
 ```
 
 ### 1.3 카메라 전환 메커니즘
+![Uploading ui-ezgif.com-optimize.gif…]()
 
 #### UI 기반 전환
 - `ODWidget_CameraButton`을 통한 모드 전환
 - `UseQ()`, `UseN()`, `UseD()` 함수가 UI 버튼 클릭 시 호출
 - `NextPreset()`: 순환 전환 (Q → N → D → Q)
-ui전환 영상 넣기
 #### 자연스러운 보간
 ```cpp
 // Lerp 기반 부드러운 전환
