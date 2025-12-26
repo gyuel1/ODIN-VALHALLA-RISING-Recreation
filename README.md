@@ -21,9 +21,9 @@
 
 | 모드 | 용도 | 특징 |
 |------|------|------|
-| **Q** | 근접 전투 | 가까운 시점, 자동사냥 시 카메라 고정 |
+| **Q** | 원거리/전술 | 먼 시점, 자동사냥 시 카메라 고정 |
 | **N** | 일반/기본 | 중간 시점, 자동사냥 시 캐릭터 뒤 추적 |
-| **D** | 원거리/전술 | 먼 시점, 자동사냥 시 캐릭터 뒤 추적 |
+| **D** | 근접 전투| 가까운 시점, 자동사냥 시 캐릭터 뒤 추적 |
 
 ### 1.2 카메라 프리셋 구조 (FCamPreset)
 
@@ -46,7 +46,7 @@ struct FCamPreset
 - `ODWidget_CameraButton`을 통한 모드 전환
 - `UseQ()`, `UseN()`, `UseD()` 함수가 UI 버튼 클릭 시 호출
 - `NextPreset()`: 순환 전환 (Q → N → D → Q)
-
+ui전환 영상 넣기
 #### 자연스러운 보간
 ```cpp
 // Lerp 기반 부드러운 전환
@@ -57,12 +57,12 @@ InterpSpeed = 1.0f;  // 보간 속도
 
 
 https://github.com/user-attachments/assets/b2c80920-2ae7-4bf9-b077-15cdf0397aff
-
+짤로 바꾸기
 
 
 > [!IMPORTANT]
 > **N/D 모드 전용**: 자동사냥 시 N 또는 D 카메라 모드일 때만 캐릭터 뒤로 자동 회전합니다.
-> **Q 모드**: 근접 전투용 고정 시점을 유지하여 자동 추적이 비활성화됩니다.
+> **Q 모드**: 원거리 전투용 고정 시점을 유지하여 자동 추적이 비활성화됩니다.
 
 #### 핵심 함수
 - `StartLerpToNDPreset()`: N/D 모드일 때 자동 추적 활성화
@@ -82,14 +82,18 @@ float YawSyncDelay = 2.0f;             // 마우스 룩 비활성화 후 자동 
 - `HandleLook()`: 마우스 룩 입력 처리
 - `SetMouseLookActive()`: 마우스 룩 모드 활성화/비활성화
 - `MouseRotationInterpSpeed = 10.0f`: 마우스 회전 보간 속도
+- 마우스 이동 영상넣기
 
 #### 키보드 입력
 - `UpdateFromMoveAxis()`: 이동 입력에 따른 카메라 자동 회전
 - `AutoYawMaxDegPerSec = 10.0f`: 키보드 입력 시 자동 회전 속도
 - `DeadzoneDeg = 2.0f`: 데드존 각도
+상-
 
 #### 줌 컨트롤
 - `SetZoomAxis(float AxisValue)`: 마우스 휠 줌 인/아웃
+줌영상
+
 
 ---
 
@@ -98,45 +102,7 @@ float YawSyncDelay = 2.0f;             // 마우스 룩 비활성화 후 자동 
 ### 개요
 3가지 독립적인 타겟팅 방식을 제공하여 다양한 플레이 스타일을 지원합니다.
 
-### 2.1 타겟팅 시스템 비교
-
-```mermaid
-graph LR
-    A[타겟팅 시스템] --> B[Auto Targeting]
-    A --> C[Select Targeting]
-    A --> D[Keyboard Targeting]
-    
-    B --> B1[자동사냥용]
-    C --> C1[마우스 클릭]
-    D --> D1[Tab/R 키]
-```
-
-### 2.2 Auto Targeting (자동 타겟팅)
-
-**목적**: 자동사냥 시 가장 가까운 적을 자동으로 타겟팅
-
-#### 구현 구조
-```cpp
-class UODTargetComponent
-{
-    USphereComponent* AutoTargetCollision;  // 범위 감지
-    TSet<AODCombatCharacter*> AutoTargetArray;  // 범위 내 적 목록
-    AODCombatCharacter* CurrentAutoTarget;  // 현재 자동 타겟
-};
-```
-
-#### 동작 흐름
-1. `AutoTargetCollision` (Sphere)가 범위 내 적 감지
-2. `OnAutoTargetCollisionBeginOverlap()`: 진입 시 `AutoTargetArray`에 추가
-3. `OnAutoTargetCollisionEndOverlap()`: 이탈 시 제거
-4. `SetAutoTarget()`: 타이머 기반으로 가장 가까운 적 선택
-5. `CurrentAutoTarget`에 저장
-
-#### 제어 함수
-- `StartAutoTargeting()`: 자동 타겟팅 시작
-- `StopAutoTargeting()`: 자동 타겟팅 종료
-
-### 2.3 Select Targeting (선택 타겟팅)
+### 2.1 Select Targeting (선택 타겟팅)
 
 **목적**: 마우스 클릭으로 직접 타겟 선택 및 공격
 
@@ -194,7 +160,7 @@ FTimerHandle MouseHoldTime;
 float ShortPressThreshold = 0.2f;  // 짧은 클릭 임계값
 ```
 
-### 2.4 Keyboard Targeting (키보드 타겟팅)
+### 2.2 Keyboard Targeting (키보드 타겟팅)
 
 **목적**: 키보드로 주변 적들을 순환하며 타겟팅
 
@@ -218,7 +184,7 @@ void DetectTargeting()  // R 키 입력
 void DetectTargetArrayClear();  // 감지 목록 초기화
 ```
 
-### 2.5 타겟 시각화
+### 2.3 타겟 시각화
 
 #### 아웃라인 효과
 ```cpp
@@ -231,6 +197,33 @@ void OnSelectTargeted();
 void OnSelectTargetCleared();
 ```
 
+### 2.4 Auto Targeting (자동 타겟팅)
+영상
+**목적**: 자동사냥 시 가장 가까운 적을 자동으로 타겟팅
+
+#### 구현 
+
+구조
+```cpp
+class UODTargetComponent
+{
+    USphereComponent* AutoTargetCollision;  // 범위 감지
+    TSet<AODCombatCharacter*> AutoTargetArray;  // 범위 내 적 목록
+    AODCombatCharacter* CurrentAutoTarget;  // 현재 자동 타겟
+};
+```
+
+#### 동작 흐름
+1. `AutoTargetCollision` (Sphere)가 범위 내 적 감지
+2. `OnAutoTargetCollisionBeginOverlap()`: 진입 시 `AutoTargetArray`에 추가
+3. `OnAutoTargetCollisionEndOverlap()`: 이탈 시 제거
+4. `SetAutoTarget()`: 타이머 기반으로 가장 가까운 적 선택
+5. `CurrentAutoTarget`에 저장
+
+#### 제어 함수
+- `StartAutoTargeting()`: 자동 타겟팅 시작
+- `StopAutoTargeting()`: 자동 타겟팅 종료
+
 ---
 
 ## 3. 자동사냥 시스템
@@ -239,27 +232,10 @@ void OnSelectTargetCleared();
 자동으로 타겟을 찾아 추적하고 공격하는 시스템입니다.
 
 ### 3.1 자동사냥 흐름도
-
-```mermaid
-graph TD
-    A[자동사냥 시작] --> B[StartAutoTargetingOn]
-    B --> C{타겟 존재?}
-    C -->|No| D[GetCurrentAutoTarget]
-    D --> E[새 타겟 검색]
-    C -->|Yes| F{타겟 생존?}
-    F -->|No| D
-    F -->|Yes| G{공격 범위?}
-    G -->|No| H[타겟으로 이동]
-    G -->|Yes| I[AttackAndSkill]
-    I --> J{플레이어 입력?}
-    J -->|Yes| K[CurrentAbilityCancel]
-    K --> L[수동 조작]
-    J -->|No| C
-    H --> C
-```
+ppt에서 가져오기 
 
 ### 3.2 활성화/비활성화
-
+자동사냥 영상
 ```cpp
 void StartAutoTargetingOn()
 {
@@ -368,24 +344,7 @@ void Multicast_StopMovementOnTargetDead();
 ## 4. 캐릭터 컨트롤 시스템
 
 ### 4.1 캐릭터 계층 구조
-
-```mermaid
-classDiagram
-    ACharacter <|-- AODCharacter
-    AODCharacter <|-- AODCombatCharacter
-    AODCombatCharacter <|-- AODPlayer
-    
-    class AODCharacter {
-        +FText DisplayName
-        +EODCharacterType ODCharacterType
-    }
-    
-    class AODCombatCharacter {
-        +UODAbilitySystemComponent ODAsc
-        +UODAttributeSet ODAttributeSet
-        +UODCombatComponent ODCombatComponent
-    }
-```
+캐릭터 클레스다이어그램 가져오
 
 ### 4.2 캐릭터 타입
 
@@ -622,48 +581,6 @@ interface IODRepGraphInterface
     void SetRepGraphCount(const int32 InRepGraph);
 };
 ```
-
-### 5.5 AI 시스템 (몬스터)
-
-#### Behavior Tree 태스크
-- `BTS_UpdateTargetFromPerception`: 지각 기반 타겟 업데이트
-- `BTTask_SelectBossTarget`: 보스 타겟 선택
-- `BTTask_MoveToAttackRange`: 공격 범위로 이동
-- `BTTask_PlayAttackMontage`: 공격 애니메이션 재생
-
-#### 공격 범위 감지
-- `OD_AI_AttackAreaDetector`: 공격 범위 감지기
-
-### 5.6 UI 시스템
-
-#### 타겟 UI
-- `ODWidget_Target`: 타겟 정보 표시
-
-#### 카메라 UI
-- `ODWidget_CameraButton`: 카메라 모드 전환 버튼
-
-#### 스킬 UI
-- `ODWidget_SkillHudActive`: 스킬 HUD
-- `ODWidget_SkillScreen`: 스킬 화면
-- `ODWidget_SkillSlotChangeScreen`: 스킬 슬롯 변경
-
-#### 입력 UI
-- `ODWidget_Hud_UserInput`: 사용자 입력 HUD
-
-### 5.7 데미지 시스템
-
-```cpp
-class AODCombatCharacter
-{
-    UFUNCTION(NetMulticast, Reliable)
-    void Muliticast_AddDamage(float Damage, bool bCritical = false);
-    
-    UODDamageReceivedComponent* ODDamageReceivedComponent;
-    UODWidget_DamageQueContainer* DamageQueContainerWidget;
-};
-```
-
----
 
 ## 기술 스택
 
