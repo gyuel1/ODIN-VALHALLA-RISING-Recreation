@@ -39,12 +39,22 @@ struct FCamPreset
 ```
 
 ### 1.3 카메라 전환 메커니즘
-![Uploading ui-ezgif.com-optimize.gif…]()
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/080793c1-491f-46a8-8568-390eb43e30cf"
+           width="100%" />
+      <br />
+      <b>카메라 전환 UI</b>
+    </td>
+ </tr>
+</table>
 
 #### UI 기반 전환
 - `ODWidget_CameraButton`을 통한 모드 전환
 - `UseQ()`, `UseN()`, `UseD()` 함수가 UI 버튼 클릭 시 호출
-- `NextPreset()`: 순환 전환 (Q → N → D → Q)
+- `NextPreset()`: 순환 전환 (N → Q → D → N)
 #### 자연스러운 보간
 ```cpp
 // Lerp 기반 부드러운 전환
@@ -53,8 +63,16 @@ InterpSpeed = 1.0f;  // 보간 속도
 
 ### 1.4 자동사냥 중 카메라 동작
 
-짤로 바꾸기
-
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8875bdbf-1068-4440-849b-4c09a47b13ea"
+           width="100%" />
+      <br />
+      <b>자동사냥 카메라</b>
+    </td>
+ </tr>
+</table>
 
 > [!IMPORTANT]
 > **N/D 모드 전용**: 자동사냥 시 N 또는 D 카메라 모드일 때만 캐릭터 뒤로 자동 회전합니다.
@@ -104,6 +122,17 @@ float YawSyncDelay = 2.0f;             // 마우스 룩 비활성화 후 자동 
 
 #### 2단계 클릭 시스템
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/df819446-4a47-445f-b67f-4ced04bc539f"
+           width="100%" />
+      <br />
+      <b>마우스 타겟팅</b>
+    </td>
+ </tr>
+</table>
+
 ```mermaid
 sequenceDiagram
     participant Player
@@ -137,6 +166,17 @@ void ServerSetSelectTarget(AODCombatCharacter* NewTarget);
 
 #### 마우스 입력 처리
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/86e7a7af-3098-47e8-9478-e58c87dc7066"
+           width="100%" />
+      <br />
+      <b>마우스 입력</b>
+    </td>
+ </tr>
+</table>
+
 **클릭 타입 구분**:
 
 | 클릭 타입 | 조건 | 동작 |
@@ -160,6 +200,17 @@ float ShortPressThreshold = 0.2f;  // 짧은 클릭 임계값
 
 **목적**: 키보드로 주변 적들을 순환하며 타겟팅
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9dc523e9-92ec-4e3c-8818-86108db41db6"
+           width="100%" />
+      <br />
+      <b>키보드 타겟팅</b>
+    </td>
+ </tr>
+</table>
+
 #### Tab 키 - 소프트 타겟팅
 ```cpp
 void KeyboardTargeting()  // Tab 키 입력
@@ -180,9 +231,21 @@ void DetectTargeting()  // R 키 입력
 void DetectTargetArrayClear();  // 감지 목록 초기화
 ```
 
-### 2.3 타겟 시각화
+### 2.4 Auto Targeting (자동 타겟팅)
+영상
+**목적**: 자동사냥 시 가장 가까운 적을 자동으로 타겟팅
+#### 타겟 시각화 아웃라인 효과
 
-#### 아웃라인 효과
+<table align="center">
+  <tr>
+    <td align="center">
+      <img width="529" height="477" alt="오토타겟" src="https://github.com/user-attachments/assets/07ff40ad-9551-4b01-a84d-19af4c276962" />
+      <br />
+      <b>타겟 시각화</b>
+    </td>
+ </tr>
+</table>
+
 ```cpp
 // Auto Target 아웃라인
 void OnAutoTargeted();
@@ -192,10 +255,6 @@ void OnAutoTargetCleared();
 void OnSelectTargeted();
 void OnSelectTargetCleared();
 ```
-
-### 2.4 Auto Targeting (자동 타겟팅)
-영상
-**목적**: 자동사냥 시 가장 가까운 적을 자동으로 타겟팅
 
 #### 구현 
 
@@ -228,10 +287,22 @@ class UODTargetComponent
 자동으로 타겟을 찾아 추적하고 공격하는 시스템입니다.
 
 ### 3.1 자동사냥 흐름도
-ppt에서 가져오기 
+
+
+<table align="center">
+  <tr>
+    <td align="center">
+    <img width="524" height="524" alt="자동사냥 흐름도" src="https://github.com/user-attachments/assets/64492588-5c73-45d2-aa1d-6bad10b73914" />
+      <br />
+      <b>자동사냥 흐름도</b>
+    </td>
+ </tr>
+</table>
+
+
 
 ### 3.2 활성화/비활성화
-자동사냥 영상
+
 ```cpp
 void StartAutoTargetingOn()
 {
@@ -275,6 +346,22 @@ void AutoHuntLoop()
     }
 }
 ```
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/860f509e-a9bf-4ffc-82b7-8f4d75093c58"
+           width="100%" />
+      <br />
+      <b>일반 공격</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/38da5569-6741-4f27-bd15-758fc4d5bf32"
+           width="100%" />
+      <br />
+      <b>스킬 공격</b>
+    </td>
+  </tr>
+</table>
 
 ### 3.4 공격 및 스킬 실행
 
@@ -284,6 +371,7 @@ void AttackAndSkill()
 {
     // Ability System을 통한 공격/스킬 실행
     if (ODAsc)
+![자동사냥 일반](https://github.com/user-attachments/assets/8a5f83a0-c7ba-4193-b3dc-37b2d96af7ad)
     {
         // 스킬 쿨다운 확인
         // 사용 가능한 스킬 선택
@@ -295,6 +383,17 @@ void AttackAndSkill()
 
 ### 3.5 공격 취소 및 입력 우선순위
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/2a52a12b-8c11-4790-b57b-6f896150fa92"
+           width="100%" />
+      <br />
+      <b>입력 우선순위</b>
+    </td>
+ </tr>
+</table>
+      
 > [!IMPORTANT]
 > **플레이어 입력 최우선**: 자동사냥 중에도 플레이어의 키보드/마우스 입력이 감지되면 즉시 공격을 취소하고 수동 조작으로 전환됩니다.
 
@@ -340,7 +439,18 @@ void Multicast_StopMovementOnTargetDead();
 ## 4. 캐릭터 컨트롤 시스템
 
 ### 4.1 캐릭터 계층 구조
-캐릭터 클레스다이어그램 가져오
+
+
+
+<table align="center">
+  <tr>
+    <td align="center">
+<img width="692" height="381" alt="캐릭터 클다" src="https://github.com/user-attachments/assets/7998437e-a84c-4795-b6b8-f7ac5746f2e4" />
+      <br />
+      <b>캐릭터 구조</b>
+    </td>
+ </tr>
+</table>
 
 ### 4.2 캐릭터 타입
 
